@@ -47,17 +47,35 @@ const createNote = () => {
 <div class="note-body">
 	${textarea.value}
 </div>`;
-
+	checkColor(newNote);
 	noteArea.appendChild(newNote);
 	cardID++; //zmieniamy id o 1
 	textarea.value = ''; //czyści po kliknięciu anuluj, żeby przy ponownym otwarciu pole było puste
 	category.selectedIndex = 0;
 	closePanel();
+	console.log(selectedValue);
 };
 
 const selectValue = () => {
 	selectedValue = category.options[category.selectedIndex].text;
 };
+
+const checkColor = (note) => {
+	//funkcja która dodanie odpowiednie kolory do kazdej kategorii notatki
+	switch (selectedValue) {
+		case 'Zakupy':
+			note.style.backgroundColor = 'rgb(72,255,0)';
+			break;
+		case 'Praca':
+			note.style.backgroundColor = 'rgb(255,243,0)';
+			break;
+		case 'Inne':
+			note.style.backgroundColor = 'rgb(0,170,255)';
+			break;
+	}
+};
+
+
 
 addBtn.addEventListener('click', openPanel);
 cancelBtn.addEventListener('click', closePanel);
