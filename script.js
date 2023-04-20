@@ -39,7 +39,7 @@ const createNote = () => {
 	const newNote = document.createElement('div');
 	newNote.classList.add('note');
 	newNote.setAttribute('id', cardID);
-	newNote.innerHTML = `<div class="note-header">
+	newNote.innerHTML = `<div class="note-header" onclick="deleteNote(${cardID})"> 
 	<h3 class="note-title">${selectedValue}</h3>
 	<button class="delete-note"><i class="fas fa-times icon"></i></button>
 
@@ -53,7 +53,6 @@ const createNote = () => {
 	textarea.value = ''; //czyści po kliknięciu anuluj, żeby przy ponownym otwarciu pole było puste
 	category.selectedIndex = 0;
 	closePanel();
-	console.log(selectedValue);
 };
 
 const selectValue = () => {
@@ -75,8 +74,18 @@ const checkColor = (note) => {
 	}
 };
 
+const deleteNote = (id) => {
+	//w momencie kiedy klikamy w x przechwytywane jest zdarzenie onclick i wywołujemydeleteNote, deleteNote przechwytuje sobie idCard czyli id naszego elementu i przeszukuje cały dokument zeby przeszukac id = np. 3
+	const noteToDelete = document.getElementById(id);
+	noteArea.removeChild(noteToDelete); //noteArea to rodzic notatek i usuwamy dziecko czy;i notatke o wskazanym id
+	//nie wywolujemy potem listenerem bo jest juz wywołana jako onclick w newnote
+};
 
+const deleteAll = () => {
+	noteArea.textContent = '';
+};
 
 addBtn.addEventListener('click', openPanel);
 cancelBtn.addEventListener('click', closePanel);
 addSave.addEventListener('click', addNote);
+btnDeleteAll.addEventListener('click', deleteAll);
